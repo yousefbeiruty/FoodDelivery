@@ -13,7 +13,7 @@ RUN python -m pip install --no-cache-dir --upgrade pip \
 
 COPY app ./app
 COPY main.py ./main.py
-COPY static ./static
+COPY --chown=app:app static ./static
 
 RUN mkdir -p /data && chown app:app /data
 USER app
