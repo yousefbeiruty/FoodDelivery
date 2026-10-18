@@ -29,6 +29,28 @@ Using `python -m uvicorn` ensures Uvicorn runs under the active virtual environm
 Swagger UI: <http://127.0.0.1:8000/docs>  
 ReDoc: <http://127.0.0.1:8000/redoc>
 
+## Run with Docker
+
+Install Docker Desktop or Docker Engine with the Compose plugin. Create a local `.env` file and set a strong `SECRET_KEY` (the file is excluded from the image):
+
+```bash
+cp .env.example .env
+```
+
+Then start the API:
+
+```bash
+docker compose up --build -d
+```
+
+The API is available at <http://localhost:8000>; Swagger UI is at <http://localhost:8000/docs>. SQLite data is stored in the persistent `freshbite_data` Docker volume. To add the sample restaurants and menu items, run:
+
+```bash
+docker compose exec api python -m app.seed
+```
+
+Stop the service with `docker compose down`. The named database volume remains in place; remove it with `docker compose down --volumes` only when you intend to delete the stored data.
+
 ## API outline
 
 - `POST /api/auth/register` creates a user.

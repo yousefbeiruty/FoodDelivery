@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in your environment or .env file}
+      DATABASE_URL: sqlite+aiosqlite:////data/freshbite.db
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:8080}
+      AUTO_CREATE_TABLES: "true"
+    volumes:
+      - freshbite_data:/data
+    restart: unless-stopped
+
+volumes:
+  freshbite_data:
